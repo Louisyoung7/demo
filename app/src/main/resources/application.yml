@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  sql:
+    init:
+      mode: always
+
+mybatis-plus:
+  configuration:
+    # 打印 SQL，方便观察 MyBatis-Plus 生成的语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

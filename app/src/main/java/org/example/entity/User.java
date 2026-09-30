@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 @TableName("t_user")
 public class User {
-
-    @TableId(type = IdType.INPUT)
+    // AUTO：新增时 id 交给数据库自增（1、2、3...）
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     private String name;

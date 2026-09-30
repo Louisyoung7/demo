@@ -18,9 +18,14 @@ dependencies {
     // Spring Boot 核心 starter
     implementation("org.springframework.boot:spring-boot-starter")
 
+    //引入Web能力
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
     // MyBatis-Plus 对 Spring Boot 3 的 starter
     implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.9")
 
+    // 分页插件依赖（3.5.9 起从主包拆出，需单独引入）
+    implementation("com.baomidou:mybatis-plus-jsqlparser:3.5.9")
     // H2 内存数据库，仅用于验证（运行时依赖）
     runtimeOnly("com.h2database:h2:2.3.232")
 
@@ -38,6 +43,9 @@ java {
 application {
     // Spring Boot 启动类
     mainClass = "org.example.DemoApplication"
+
+    //Windows控制台中文乱码修正：让JVM用UTF-8输出
+    applicationDefaultJvmArgs=listOf("-Dfile.encoding=UTF-8")
 }
 
 tasks.named<Test>("test") {

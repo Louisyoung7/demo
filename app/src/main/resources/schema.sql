@@ -1,5 +1,27 @@
 CREATE TABLE IF NOT EXISTS t_user (
-    id   BIGINT PRIMARY KEY,
+    id   BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50),
     age  INT
 );
+CREATE TABLE IF NOT EXISTS t_score(
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(50),
+  subject VARCHAR(50),
+  score INT
+);
+
+CREATE TABLE IF NOT EXISTS t_book(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100),
+    author VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS t_borrow(
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  book_id BIGINT,
+  borrower VARCHAR(50),
+  borrow_date VARCHAR(20)
+);
+
+
+

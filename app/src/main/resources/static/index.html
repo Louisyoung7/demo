@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>AI 聊天（流式）</title>
+  <style>
+    body { font-family: "Microsoft YaHei", sans-serif; max-width: 700px; margin:
+            40px auto; padding: 0 20px; }
+    #out { min-height: 120px; border: 1px solid #ccc; border-radius: 6px;
+      padding: 16px;
+      margin-top: 16px; white-space: pre-wrap; background: #fafafa;
+      line-height: 1.7; }
+    input { width: 70%; padding: 10px; font-size: 15px; }
+    button { padding: 10px 20px; font-size: 15px; cursor: pointer; }
+  </style>
+</head>
+<body>
+<h1>AI 聊天（流式）</h1>
+<input id="msg" placeholder="输入问题，回车发送" />
+<button onclick="send()">发送</button>
+<div id="out"></div>
+
+<script>
+  function send() {
+    const msg = document.getElementById('msg').value.trim();
+    if (!msg) return;
+    const out = document.getElementById('out');
+    out.textContent = '';
+
+    const es = new EventSource('/chat/stream?message=' +
+            encodeURIComponent(msg));
+    es.onmessage = e => {
+      out.textContent += e.data;
+    };
+    es.onerror = () => {
+      es.close();
+    };
+  }
+
+  document.getElementById('msg').addEventListener('keydown', e => {
+    if (e.key === 'Enter') send();
+  });
+</script>
+</body>
+</html>

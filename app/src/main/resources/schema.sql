@@ -23,5 +23,10 @@ CREATE TABLE IF NOT EXISTS t_borrow(
   borrow_date VARCHAR(20)
 );
 
-
+CREATE TABLE IF NOT EXISTS t_message(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    topic VARCHAR(100),
+    payload TEXT,
+    recv_time DATETIME
+);
 

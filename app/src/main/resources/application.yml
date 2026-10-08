@@ -1,13 +1,20 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: ""
+    url: jdbc:mysql://localhost:3307/iot?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: "123456"
   sql:
     init:
       mode: always
-
+  ai:
+    openai:
+      api-key: ${DEEPSEEK_API_KEY}      # 从环境变量读，别把 key 写死在文件里
+      base-url: https://api.deepseek.com # DeepSeek 的 OpenAI 兼容地址
+      chat:
+        options:
+          model: deepseek-chat          # 对话模型；想用推理模型填 deepseek-reasoner
+          temperature: 0.7              # 可选，回答的随机性
 mybatis-plus:
   configuration:
     # 打印 SQL，方便观察 MyBatis-Plus 生成的语句

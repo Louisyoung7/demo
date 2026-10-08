@@ -29,6 +29,17 @@ dependencies {
     // H2 内存数据库，仅用于验证（运行时依赖）
     runtimeOnly("com.h2database:h2:2.3.232")
 
+    // MySQL 驱动（版本由 Spring Boot BOM 管理，不用写号）
+    runtimeOnly("com.mysql:mysql-connector-j")
+
+    // 版本管理 BOM（Spring Boot 3.4.x 对应 Spring AI 1.0.x）
+    implementation(platform("org.springframework.ai:spring-ai-bom:1.0.0"))
+    // OpenAI 兼容模型 starter（DeepSeek 走 OpenAI 协议）
+    implementation("org.springframework.ai:spring-ai-starter-model-openai")
+
+    // MQTT 客户端（Paho）
+    implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
+
     // 测试
     testImplementation(libs.junit.jupiter)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
@@ -36,7 +47,7 @@ dependencies {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 

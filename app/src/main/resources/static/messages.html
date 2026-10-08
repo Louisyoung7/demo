@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>MQTT 消息监控</title>
+  <style>
+    body { font-family: "Microsoft YaHei", sans-serif; max-width: 900px;
+      margin: 40px auto; padding: 0 20px; }
+    h1 { font-size: 22px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: left; }
+    th { background: #f0f0f0; }
+    button { padding: 8px 16px; font-size: 14px; cursor: pointer; }
+    .toolbar { margin: 12px 0; }
+  </style>
+</head>
+<body>
+<h1>MQTT 消息监控</h1>
+<div class="toolbar">
+  <button onclick="refresh()">刷新</button>
+  <label><input type="checkbox" id="auto" checked> 每 2 秒自动刷新</label>
+</div>
+<table>
+  <thead>
+  <tr><th>#</th><th>主题 topic</th><th>内容 payload</th><th>接收时间</th></tr>
+  </thead>
+  <tbody id="rows"></tbody>
+</table>
+
+<script>
+  async function refresh() {
+    const res = await fetch('/messages');
+    const list = await res.json();
+    const rows = document.getElementById('rows');
+    rows.innerHTML = '';
+    list.forEach(m => {
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+              '<td>' + m.id + '</td>' +
+              '<td>' + m.topic + '</td>' +
+              '<td>' + m.payload + '</td>' +
+              '<td>' + m.recvTime + '</td>';
+      rows.appendChild(tr);
+    });
+  }
+
+  refresh();
+  setInterval(() => {
+    if (document.getElementById('auto').checked) refresh();
+  }, 2000);
+</script>
+</body>
+</html>
